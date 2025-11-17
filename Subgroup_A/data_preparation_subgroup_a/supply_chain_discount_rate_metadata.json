@@ -1,0 +1,13 @@
+{
+    "tables": {
+        "table": {
+            "columns": {
+                "Order Item Discount Rate": {
+                    "sdtype": "numerical"
+                }
+            }
+        }
+    },
+    "relationships": [],
+    "METADATA_SPEC_VERSION": "V1"
+}
