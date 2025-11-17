@@ -1,0 +1,112 @@
+services:
+
+########## SUBGROUP A ##########
+  data_preparation_subgroup_a:
+    build:
+      context: .  # Path to the directory containing the Dockerfile
+      target: data_preparation_subgroup_a  # Specify the target stage in the Dockerfile
+    env_file: .env  # Load environment variables from your .env file
+    volumes:
+      - ${INPUT_DIR}:/app/input  
+      - ${OUTPUT_DIR}:/app/output
+    command: python "/app/data_preparation_subgroup_a/data_generation_final.py"
+
+  customer_reviews_sentiment_analysis_module:
+    build:
+      context: .  # Path to the directory containing the Dockerfile
+      target: customer_reviews_sentiment_analysis_module  # Specify the target stage in the Dockerfile
+    env_file: .env  # Load environment variables from your .env file
+    volumes:
+      - ./Subgroup_A/customer_reviews_sentiment_analysis_module:/app/customer_reviews_sentiment_analysis_module
+      - ${INPUT_DIR}:/app/input  
+      - ${OUTPUT_DIR}:/app/output
+    command: bash -c "/app/customer_reviews_sentiment_analysis_module/run_customer_reviews_sentiment_analysis.sh"
+
+  customer_behaviour_analysis_module:
+    build:
+      context: .  # Path to the directory containing the Dockerfile
+      target: customer_behaviour_analysis_module  # Specify the target stage in the Dockerfile
+    env_file: .env  # Load environment variables from your .env file
+    volumes:
+      - ./Subgroup_A/customer_behaviour_analysis_module:/app/customer_behaviour_analysis_module
+      - ${INPUT_DIR}:/app/input  
+      - ${OUTPUT_DIR}:/app/output
+    command: bash -c "/app/customer_behaviour_analysis_module/run_customer_behaviour_analysis.sh"
+
+  customer_churn_analysis_module:
+    build:
+      context: .  # Path to the directory containing the Dockerfile
+      target: customer_churn_analysis_module  # Specify the target stage in the Dockerfile
+    env_file: .env  # Load environment variables from your .env file
+    volumes:
+      - ./Subgroup_A/customer_churn_analysis_module:/app/customer_churn_analysis_module
+      - ${INPUT_DIR}:/app/input  
+      - ${OUTPUT_DIR}:/app/output
+    command: bash -c "/app/customer_churn_analysis_module/run_customer_churn_analysis.sh"
+
+  marketing_analysis_module:
+    build:
+      context: .  # Path to the directory containing the Dockerfile
+      target: marketing_analysis_module  # Specify the target stage in the Dockerfile
+    env_file: .env  # Load environment variables from your .env file
+    volumes:
+      - ./Subgroup_A/marketing_analysis_module:/app/marketing_analysis_module
+      - ${INPUT_DIR}:/app/input  
+      - ${OUTPUT_DIR}:/app/output
+    command: bash -c "/app/marketing_analysis_module/run_marketing_analysis.sh"
+
+########## SUBGROUP B ##########
+
+  data_preparation_subgroup_b:
+    build:
+      context: .  # Path to the directory containing the Dockerfile
+      target: data_preparation_subgroup_b  # Specify the target stage in the Dockerfile
+    env_file: .env  # Load environment variables from your .env file
+    volumes:
+      - ./Subgroup_B/data_preparation_subgroup_b:/app/data_preparation_subgroup_b
+      - ${INPUT_DIR}:/app/input  
+      - ${OUTPUT_DIR}:/app/output
+    command: bash -c "/app/data_preparation_subgroup_b/run_preprocessing.sh"
+
+  pricing_strategy_module:
+    build:
+      context: .  # Path to the directory containing the Dockerfile
+      target: pricing_strategy_module  # Specify the target stage in the Dockerfile
+    env_file: .env  # Load environment variables from your .env file
+    volumes:
+      - ./Subgroup_B/pricing_strategy_module:/app/pricing_strategy_module
+      - ${INPUT_DIR}:/app/input  
+      - ${OUTPUT_DIR}:/app/output
+    command: bash -c "/app/pricing_strategy_module/run_pricing_strategy.sh"
+
+  inventory_management:
+    build:
+      context: .  # Path to the directory containing the Dockerfile
+      target: inventory_management_module  # Specify the target stage in the Dockerfile
+    env_file: .env  # Load environment variables from your .env file
+    volumes:
+      - ./Subgroup_B/inventory_management_module/notebooks/:/app/notebooks/  # Persist notebook outputs
+      - ${INPUT_DIR}:/app/input  
+      - ${OUTPUT_DIR}:/app/output
+    command: bash -c "/app/inventory_management_module/run_inventory_management.sh"
+
+  order_fulfillment_process:
+    build:
+      context: .  # Path to the directory containing the Dockerfile
+      target: order_fulfillment_process_module  # Specify the target stage in the Dockerfile
+    env_file: .env  # Load environment variables from your .env file
+    volumes:
+      - ./Subgroup_B/order_fulfillment_process_module/notebooks/:/app/notebooks/  # Persist notebook outputs
+      - ${INPUT_DIR}:/app/input  
+      - ${OUTPUT_DIR}:/app/output  
+    command: bash -c "/app/order_fulfillment_process_module/run_delivery_plan.sh"
+
+  dashboarding_module:
+    build:
+      context: .  # Path to the directory containing the Dockerfile
+      target: dashboarding_module  # Specify the target stage in the Dockerfile
+    env_file: .env  # Load environment variables from your .env file
+    volumes:
+      - ${INPUT_DIR}:/app/input  
+      - ${OUTPUT_DIR}:/app/output
+    command: bash -c "/app/dashboarding_module/run_extract_dashboard_data.sh"
