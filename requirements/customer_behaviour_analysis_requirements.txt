@@ -1,0 +1,7 @@
+pymc==5.13.0 
+arviz==0.15.0
+scikit-learn==1.2.2
+plotly==5.15.0
+python-dotenv==1.0.0
+dill==0.3.6
+scipy==1.11.3
