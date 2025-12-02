@@ -31,7 +31,7 @@ Follow these instructions to set up and run the project on your local machine us
 1.  Navigate to Directory that you want the project repository to be
 2.  **Clone the Repository**: Run the following command to clone this repository:
    ```bash
-   git clone https://github.com/robbiechia/Campus-Security.git
+   git clone https://github.com/poopyryan/Analysis-and-Optimization-of-Electronic-Commerce-Platforms.git
    ```
 3. **Set Up Environment Variables**:
   * Open the Cloned Repository in Visual Studio Code (VS Code).
